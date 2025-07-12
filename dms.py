@@ -16,6 +16,7 @@ import asyncio
 import html
 import base64
 import re
+from aiohttp import web
 
 init(autoreset=True)
 
