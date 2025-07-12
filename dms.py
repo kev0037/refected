@@ -19,23 +19,27 @@ import re
 
 init(autoreset=True)
 
-load_dotenv()
-TOKEN = os.getenv("TOKEN")
-
 intents = discord.Intents.default()
 intents.messages = True
 intents.guilds = True
 intents.reactions = True
 intents.members = True
-#intents.message_content = True  # Needed for message content access
-# ✅ DEFINE THIS BEFORE bot = commands.Bot(...)
 def get_prefix(bot, message):
     with open("prefixes.json", "r") as f:
         prefixes = json.load(f)
     return prefixes.get(str(message.guild.id), prefixes["default"])
 
 bot = commands.Bot(command_prefix=get_prefix, intents=intents, help_command=None)
+async def handle(request):
+    return web.Response(text="Bot is running!")
 
+async def start_webserver():
+    app = web.Application()
+    app.router.add_get('/', handle)
+    runner = web.AppRunner(app)
+    await runner.setup()
+    site = web.TCPSite(runner, '0.0.0.0', int(os.getenv("PORT", 8080)))
+    await site.start()
 
 def command_category(category: str):
     def wrapper(func):
@@ -3646,4 +3650,14 @@ async def on_guild_channel_delete(channel):
 async def before_auto_poster():
     await bot.wait_until_ready()
 
-bot.run(TOKEN)
+async def main():
+    await asyncio.gather(
+        start_webserver(),
+        bot.start(os.getenv("DISCORD_BOT_TOKEN"))
+    )
+
+if __name__ == "__main__":
+    import asyncio
+
+
+asyncio.run(main())
