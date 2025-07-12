@@ -1,0 +1,20 @@
+{
+    "1348802142600691977": {
+        "coins": 100,
+        "bank": 94,
+        "last_daily": "2025-07-11T21:02:18.571824",
+        "last_rob": "2025-07-11T21:03:09.160444",
+        "last_work": "2025-07-11T21:02:22.819644",
+        "last_payday": null,
+        "last_crime": null
+    },
+    "633433664902004760": {
+        "coins": 139,
+        "bank": 0,
+        "last_daily": "2025-07-11T21:02:22.798760",
+        "last_rob": null,
+        "last_work": "2025-07-11T21:02:27.985661",
+        "last_payday": null,
+        "last_crime": null
+    }
+}
